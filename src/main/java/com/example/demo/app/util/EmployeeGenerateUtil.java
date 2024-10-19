@@ -2,18 +2,24 @@ package com.example.demo.app.util;
 
 import com.github.javafaker.Faker;
 import com.example.demo.app.entity.Employee;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Component
 public class EmployeeGenerateUtil {
+
     private static final Faker faker = new Faker();
     private static final Random random = new Random();
-    private static final String[] lastNamesStartingWithF = {"Fedorov", "Fomin", "Fedotov", "Filippov", "Fursov"};
 
-    public static List<Employee> generateEmployees(int count) {
+    @Value("${employee.lastNames.startingWithF}")
+    private String[] lastNamesStartingWithF;
+
+    public List<Employee> generateEmployees(int count) {
         List<Employee> employees = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
@@ -27,13 +33,13 @@ public class EmployeeGenerateUtil {
         return employees;
     }
 
-    public static LocalDate generateRandomBirthDate() {
+    public LocalDate generateRandomBirthDate() {
         int year = 1980 + faker.random().nextInt(21);
         int dayOfYear = 1 + faker.random().nextInt(365);
         return LocalDate.ofYearDay(year, dayOfYear);
     }
 
-    public static String generateFullNameWithLastNameStartingWithF() {
+    public String generateFullNameWithLastNameStartingWithF() {
         String lastName = lastNamesStartingWithF[random.nextInt(lastNamesStartingWithF.length)];
         String firstName = faker.name().firstName();
         String middleName = faker.name().lastName();

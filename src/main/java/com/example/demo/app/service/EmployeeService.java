@@ -17,6 +17,7 @@ import java.util.Set;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final EmployeeGenerateUtil employeeGenerateUtil;
 
     public void initTable() {
         employeeRepository.createTable();
@@ -52,18 +53,19 @@ public class EmployeeService {
     }
 
     public void fillDatabaseAutomatically() {
-        List<Employee> employees = EmployeeGenerateUtil.generateEmployees(1_000_000);
+        List<Employee> employees = employeeGenerateUtil.generateEmployees(1_000_000);
         employeeRepository.saveEmployeesBatch(employees);
 
         List<Employee> employeesWithStartF = new ArrayList<>(100);
         for (int i = 0; i < 100; i++) {
-            String fullName = EmployeeGenerateUtil.generateFullNameWithLastNameStartingWithF();
-            LocalDate birthDate = EmployeeGenerateUtil.generateRandomBirthDate();
+            String fullName = employeeGenerateUtil.generateFullNameWithLastNameStartingWithF();
+            LocalDate birthDate = employeeGenerateUtil.generateRandomBirthDate();
             employeesWithStartF.add(new Employee(null, fullName, birthDate, "Male"));
         }
 
         employeeRepository.saveEmployeesBatch(employeesWithStartF);
     }
+
     public void searchByGenderAndLastNameStartingWith(String gender, String prefix) {
         var employees = getByGenderAndLastNameStartingWith(gender, prefix);
 
