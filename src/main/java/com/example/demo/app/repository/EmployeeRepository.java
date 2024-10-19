@@ -31,7 +31,7 @@ public class EmployeeRepository {
                     ")";
 
         String idxForFullName = "CREATE INDEX idx_full_name ON employees USING btree (full_name)";
-        String idxForGender = "CREATE INDEX idx_gender_hash ON employees USING btree (gender)";
+        String idxForGender = "CREATE INDEX idx_gender ON employees USING btree (gender)";
 
         try (Connection connection = databaseConnection.getConnection();
              Statement statement = connection.createStatement()) {
