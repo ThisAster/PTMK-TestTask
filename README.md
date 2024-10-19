@@ -22,7 +22,7 @@
 
     java -jar target/demo-0.0.1-SNAPSHOT.jar 3
 
-### Генерация 1_000_100 соотрудников:
+### Генерация 1000100 соотрудников:
 
     java -jar target/demo-0.0.1-SNAPSHOT.jar 4
 
