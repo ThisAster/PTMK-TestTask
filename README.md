@@ -5,7 +5,7 @@
 ### Собираем jar-файл:
     mvn clean package
 
-### Выбор режим:
+### Выбор режима:
     java -jar target/demo-0.0.1-SNAPSHOT.jar <mode> [additional parameters]
 
 ## Доступные режимы:
