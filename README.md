@@ -30,4 +30,8 @@
 
     java -jar target/demo-0.0.1-SNAPSHOT.jar 5 Male F
 
+### Удаление всех данных с таблицы:
+
+    java -jar target/demo-0.0.1-SNAPSHOT.jar 6
+
 
