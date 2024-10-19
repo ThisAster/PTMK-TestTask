@@ -1,6 +1,6 @@
-package com.example.demo.app.employee.repository;
+package com.example.demo.app.repository;
 
-import com.example.demo.app.employee.entity.Employee;
+import com.example.demo.app.entity.Employee;
 import com.example.demo.database.DatabaseConnection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

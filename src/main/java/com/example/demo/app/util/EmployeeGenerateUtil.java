@@ -1,7 +1,7 @@
-package com.example.demo.app.employee.util;
+package com.example.demo.app.util;
 
 import com.github.javafaker.Faker;
-import com.example.demo.app.employee.entity.Employee;
+import com.example.demo.app.entity.Employee;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

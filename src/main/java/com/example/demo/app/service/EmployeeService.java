@@ -1,8 +1,8 @@
-package com.example.demo.app.employee.service;
+package com.example.demo.app.service;
 
-import com.example.demo.app.employee.entity.Employee;
-import com.example.demo.app.employee.repository.EmployeeRepository;
-import com.example.demo.app.employee.util.EmployeeGenerateUtil;
+import com.example.demo.app.entity.Employee;
+import com.example.demo.app.repository.EmployeeRepository;
+import com.example.demo.app.util.EmployeeGenerateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
