@@ -117,7 +117,7 @@ public class EmployeeRepository {
         }
     }
 
-    public void saveEmployeesBatch(List<Employee> employees) {
+    public void saveEmployeesBatch(List<Employee> employees, int batch) {
         String sql = "INSERT INTO employees (full_name, birth_date, gender) VALUES (?, ?, ?)";
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -131,7 +131,7 @@ public class EmployeeRepository {
 
                 count++;
 
-                if (count % 1000 == 0) {
+                if (count % batch == 0) {
                     statement.executeBatch();
                 }
             }

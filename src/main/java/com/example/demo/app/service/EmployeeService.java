@@ -44,8 +44,9 @@ public class EmployeeService {
     }
 
     public void fillDatabaseAutomatically() {
-        employeeRepository.saveEmployeesBatch(employeeGenerateUtil.generateEmployees(1_000_000));
-        employeeRepository.saveEmployeesBatch(employeeGenerateUtil.generateEmployeesWithLastNameStartingWithF(100));
+        employeeRepository.saveEmployeesBatch(employeeGenerateUtil.generateEmployees(1_000_000), 10_000);
+
+        employeeRepository.saveEmployeesBatch(employeeGenerateUtil.generateEmployeesWithLastNameStartingWithF(100), 1);
     }
 
     public void searchByGenderAndLastNameStartingWith(String gender, String prefix) {
