@@ -1,4 +1,4 @@
-package com.example.demo.app.util.properties;
+package com.example.demo.app.properties;
 
 import lombok.Getter;
 import lombok.Setter;

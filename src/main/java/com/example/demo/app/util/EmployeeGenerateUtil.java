@@ -1,7 +1,7 @@
 package com.example.demo.app.util;
 
 import com.example.demo.app.entity.Employee;
-import com.example.demo.app.util.properties.EmployeeProperties;
+import com.example.demo.app.properties.EmployeeProperties;
 
 
 import lombok.RequiredArgsConstructor;
@@ -77,7 +77,6 @@ public class EmployeeGenerateUtil {
         }
         return employees;
     }
-
 
     private String generateMalePatronymic(String fatherFirstName) {
         return fatherFirstName + "ovich";
