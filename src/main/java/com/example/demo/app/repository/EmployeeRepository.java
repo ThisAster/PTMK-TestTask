@@ -65,7 +65,7 @@ public class EmployeeRepository {
     }
 
     public List<Employee> findAll() {
-        String sql = "SELECT * FROM employees ORDER BY full_name";
+        String sql = "SELECT DISTINCT ON (full_name, birth_date) * FROM employees ORDER BY full_name";
         List<Employee> employees = new ArrayList<>();
         try (Connection connection = databaseConnection.getConnection();
         Statement statement = connection.createStatement();

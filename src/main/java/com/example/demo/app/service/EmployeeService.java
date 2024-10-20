@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -32,20 +30,14 @@ public class EmployeeService {
     }
 
     public void getUniqueAllEmployeesByFullNameAndBithDate() {
-        Set<String> uniqueEmployees = new HashSet<>();
-
         List<Employee> employees = employeeRepository.findAll();
 
         for (Employee employee : employees) {
             int age = calculateAge(employee.getDateOfBirth());
             String employeeDetail = String.format("Full Name: %s, Birth Date: %s, Gender: %s, Age: %d",
                     employee.getFullName(), employee.getDateOfBirth(), employee.getGender(), age);
-            uniqueEmployees.add(employeeDetail);
+            System.out.println(employeeDetail);
         }
-
-        uniqueEmployees.stream()
-                .sorted()
-                .forEach(System.out::println);
     }
 
     public List<Employee> getByGenderAndLastNameStartingWith(String gender, String prefix) {
