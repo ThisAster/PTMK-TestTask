@@ -45,12 +45,6 @@
 			<artifactId>jakarta.persistence-api</artifactId>
 			<version>3.2.0</version>
 		</dependency>
-		<!-- For generates random data  -->
-		<dependency>
-			<groupId>com.github.javafaker</groupId>
-			<artifactId>javafaker</artifactId>
-			<version>1.0.2</version>
-		</dependency>
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
