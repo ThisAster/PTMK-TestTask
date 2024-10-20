@@ -1,46 +1,89 @@
 package com.example.demo.app.util;
 
-import com.github.javafaker.Faker;
 import com.example.demo.app.entity.Employee;
-import org.springframework.beans.factory.annotation.Value;
+import com.example.demo.app.util.properties.EmployeeProperties;
+
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Component
+@RequiredArgsConstructor
 public class EmployeeGenerateUtil {
 
-    private static final Faker faker = new Faker();
     private static final Random random = new Random();
 
-    @Value("${employee.lastNames.startingWithF}")
-    private String[] lastNamesStartingWithF;
+    private final EmployeeProperties employeeProperties;
+
+    public Employee generateEmployee() {
+        String gender = generateGender();
+        String fullName = generateFullName(gender);
+        LocalDate birthDate = generateRandomBirthDate();
+        return new Employee(null, fullName, birthDate, gender);
+    }
 
     public List<Employee> generateEmployees(int count) {
-        List<Employee> employees = new ArrayList<>();
-
+        List<Employee> employees = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
-            String fullName = faker.name().fullName();
-            LocalDate birthDate = generateRandomBirthDate();
-            String gender = faker.options().option("Male", "Female");
-
-            employees.add(new Employee(null, fullName, birthDate, gender));
+            employees.add(generateEmployee());
         }
-
         return employees;
     }
 
+    private String generateGender() {
+        return random.nextBoolean() ? "Male" : "Female";
+    }
+
+    public String generateFullName(String gender) {
+        String firstName;
+        String lastName;
+        String patronymic;
+
+        if ("Male".equals(gender)) {
+            firstName = getRandomElement(employeeProperties.getMaleFirstNames());
+            lastName = getRandomElement(employeeProperties.getMaleLastNames());
+            patronymic = getRandomElement(employeeProperties.getMaleMiddleNames());
+        } else {
+            firstName = getRandomElement(employeeProperties.getFemaleFirstNames());
+            lastName = getRandomElement(employeeProperties.getFemaleLastNames());
+            patronymic = getRandomElement(employeeProperties.getFemaleMiddleNames());
+        }
+
+        return String.format("%s %s %s", lastName, firstName, patronymic);
+    }
+
     public LocalDate generateRandomBirthDate() {
-        int year = 1980 + faker.random().nextInt(21);
-        int dayOfYear = 1 + faker.random().nextInt(365);
+        int year = 1980 + random.nextInt(23);
+        int dayOfYear = 1 + random.nextInt(365);
         return LocalDate.ofYearDay(year, dayOfYear);
     }
 
     public String generateFullNameWithLastNameStartingWithF() {
-        String lastName = lastNamesStartingWithF[random.nextInt(lastNamesStartingWithF.length)];
-        String firstName = faker.name().firstName();
-        String middleName = faker.name().lastName();
-        return String.format("%s %s %s", lastName, firstName, middleName);
+        String lastName = getRandomElement(employeeProperties.getLastNamesStartingWithF());
+        String firstName = getRandomElement(employeeProperties.getMaleFirstNames());
+        return String.format("%s %s %s", lastName, firstName, generateMalePatronymic(firstName));
+    }
+    public List<Employee> generateEmployeesWithLastNameStartingWithF(int count) {
+        List<Employee> employees = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            String fullName = generateFullNameWithLastNameStartingWithF();
+            LocalDate birthDate = generateRandomBirthDate();
+            employees.add(new Employee(null, fullName, birthDate, "Male"));
+        }
+        return employees;
+    }
+
+
+    private String generateMalePatronymic(String fatherFirstName) {
+        return fatherFirstName + "ovich";
+    }
+
+    private <T> T getRandomElement(List<T> list) {
+        return list.get(random.nextInt(list.size()));
     }
 }

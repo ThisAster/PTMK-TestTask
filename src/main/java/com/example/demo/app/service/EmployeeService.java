@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,17 +44,8 @@ public class EmployeeService {
     }
 
     public void fillDatabaseAutomatically() {
-        List<Employee> employees = employeeGenerateUtil.generateEmployees(1_000_000);
-        employeeRepository.saveEmployeesBatch(employees);
-
-        List<Employee> employeesWithStartF = new ArrayList<>(100);
-        for (int i = 0; i < 100; i++) {
-            String fullName = employeeGenerateUtil.generateFullNameWithLastNameStartingWithF();
-            LocalDate birthDate = employeeGenerateUtil.generateRandomBirthDate();
-            employeesWithStartF.add(new Employee(null, fullName, birthDate, "Male"));
-        }
-
-        employeeRepository.saveEmployeesBatch(employeesWithStartF);
+        employeeRepository.saveEmployeesBatch(employeeGenerateUtil.generateEmployees(1_000_000));
+        employeeRepository.saveEmployeesBatch(employeeGenerateUtil.generateEmployeesWithLastNameStartingWithF(100));
     }
 
     public void searchByGenderAndLastNameStartingWith(String gender, String prefix) {
